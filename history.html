@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incident History - CrimeReport</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-blue-600">CrimeReport</a>
+                </div>
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="report.html" class="text-gray-700 hover:text-blue-600">Report Incident</a>
+                    <a href="profile.html" class="text-gray-700 hover:text-blue-600">Profile</a>
+                    <a href="#" id="logoutBtn" class="text-gray-700 hover:text-blue-600">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- History Content -->
+    <div class="min-h-screen pt-20 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-gray-900">Incident History</h1>
+                <p class="mt-2 text-gray-600">View and track all your reported incidents</p>
+            </div>
+
+            <!-- Filters -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div>
+                        <label for="statusFilter" class="block text-sm font-medium text-gray-700">Status</label>
+                        <select id="statusFilter" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="resolved">Resolved</option>
+                            <option value="closed">Closed</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="typeFilter" class="block text-sm font-medium text-gray-700">Type</label>
+                        <select id="typeFilter" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="">All Types</option>
+                            <option value="robbery">Robbery</option>
+                            <option value="assault">Assault</option>
+                            <option value="theft">Theft</option>
+                            <option value="traffic">Traffic Accident</option>
+                            <option value="vandalism">Vandalism</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="dateFilter" class="block text-sm font-medium text-gray-700">Date Range</label>
+                        <input type="date" id="dateFilter" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+                    <div class="flex items-end">
+                        <button class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Apply Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Incident List -->
+            <div class="space-y-4">
+                <!-- Incident Card 1 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900">Robbery Incident</h3>
+                            <p class="text-sm text-gray-500">Report ID: #12345</p>
+                        </div>
+                        <span class="px-3 py-1 text-sm font-medium rounded-full bg-yellow-100 text-yellow-800">
+                            In Progress
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-gray-600">Reported on March 15, 2024 at 2:30 PM</p>
+                        <p class="text-gray-600 mt-2">Location: 123 Main Street, City</p>
+                        <p class="text-gray-600 mt-2">Description: Armed robbery at local convenience store...</p>
+                    </div>
+                    <div class="mt-4 flex items-center space-x-4">
+                        <button class="text-blue-600 hover:text-blue-800">
+                            <i class="fas fa-eye mr-1"></i> View Details
+                        </button>
+                        <button class="text-blue-600 hover:text-blue-800">
+                            <i class="fas fa-download mr-1"></i> Download Report
+                        </button>
+                        <button class="text-blue-600 hover:text-blue-800">
+                            <i class="fas fa-comment mr-1"></i> Add Comment
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Incident Card 2 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900">Traffic Accident</h3>
+                            <p class="text-sm text-gray-500">Report ID: #12344</p>
+                        </div>
+                        <span class="px-3 py-1 text-sm font-medium rounded-full bg-green-100 text-green-800">
+                            Resolved
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-gray-600">Reported on March 14, 2024 at 5:45 PM</p>
+                        <p class="text-gray-600 mt-2">Location: Highway 101, Exit 5</p>
+                        <p class="text-gray-600 mt-2">Description: Two-vehicle collision with minor injuries...</p>
+                    </div>
+                    <div class="mt-4 flex items-center space-x-4">
+                        <button class="text-blue-600 hover:text-blue-800">
+                            <i class="fas fa-eye mr-1"></i> View Details
+                        </button>
+                        <button class="text-blue-600 hover:text-blue-800">
+                            <i class="fas fa-download mr-1"></i> Download Report
+                        </button>
+                        <button class="text-blue-600 hover:text-blue-800">
+                            <i class="fas fa-comment mr-1"></i> Add Comment
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Incident Card 3 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900">Theft</h3>
+                            <p class="text-sm text-gray-500">Report ID: #12343</p>
+                        </div>
+                        <span class="px-3 py-1 text-sm font-medium rounded-full bg-gray-100 text-gray-800">
+                            Closed
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-gray-600">Reported on March 13, 2024 at 10:15 AM</p>
+                        <p class="text-gray-600 mt-2">Location: 456 Park Avenue, City</p>
+                        <p class="text-gray-600 mt-2">Description: Vehicle break-in and theft of personal belongings...</p>
+                    </div>
+                    <div class="mt-4 flex items-center space-x-4">
+                        <button class="text-blue-600 hover:text-blue-800">
+                            <i class="fas fa-eye mr-1"></i> View Details
+                        </button>
+                        <button class="text-blue-600 hover:text-blue-800">
+                            <i class="fas fa-download mr-1"></i> Download Report
+                        </button>
+                        <button class="text-blue-600 hover:text-blue-800">
+                            <i class="fas fa-comment mr-1"></i> Add Comment
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-8 flex justify-center">
+                <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                        <span class="sr-only">Previous</span>
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                    <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-blue-50 text-sm font-medium text-blue-600 hover:bg-gray-50">
+                        1
+                    </a>
+                    <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        2
+                    </a>
+                    <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        3
+                    </a>
+                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                        <span class="sr-only">Next</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html> 

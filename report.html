@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Incident - CrimeReport</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-blue-600">CrimeReport</a>
+                </div>
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="profile.html" class="text-gray-700 hover:text-blue-600">Profile</a>
+                    <a href="history.html" class="text-gray-700 hover:text-blue-600">History</a>
+                    <a href="#" id="logoutBtn" class="text-gray-700 hover:text-blue-600">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Report Form -->
+    <div class="min-h-screen pt-20 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-8">Report an Incident</h2>
+                
+                <form id="reportForm" class="space-y-6">
+                    <!-- Incident Type -->
+                    <div>
+                        <label for="incidentType" class="block text-sm font-medium text-gray-700">Incident Type</label>
+                        <select id="incidentType" name="incidentType" required
+                            class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                            <option value="">Select an incident type</option>
+                            <option value="robbery">Robbery</option>
+                            <option value="assault">Assault</option>
+                            <option value="theft">Theft</option>
+                            <option value="traffic">Traffic Accident</option>
+                            <option value="vandalism">Vandalism</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Description -->
+                    <div>
+                        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                        <textarea id="description" name="description" rows="4" required
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            placeholder="Please provide a detailed description of the incident..."></textarea>
+                    </div>
+
+                    <!-- Date and Time -->
+                    <div>
+                        <label for="dateTime" class="block text-sm font-medium text-gray-700">Date and Time</label>
+                        <input type="datetime-local" id="dateTime" name="dateTime" required
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+
+                    <!-- Location -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Location</label>
+                        <div class="mt-1 relative">
+                            <div id="map" class="h-96 w-full rounded-md border border-gray-300"></div>
+                            <div class="absolute top-2 right-2 z-[400] bg-white p-2 rounded-md shadow-md">
+                                <button type="button" id="getLocation" class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-location-arrow"></i> Get My Location
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mt-2 grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="latitude" class="block text-sm font-medium text-gray-700">Latitude</label>
+                                <input type="text" id="latitude" name="latitude" readonly
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm bg-gray-50 sm:text-sm">
+                            </div>
+                            <div>
+                                <label for="longitude" class="block text-sm font-medium text-gray-700">Longitude</label>
+                                <input type="text" id="longitude" name="longitude" readonly
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm bg-gray-50 sm:text-sm">
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <label for="location" class="block text-sm font-medium text-gray-700">Address</label>
+                            <input type="text" id="location" name="location" required
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                placeholder="Enter location details">
+                        </div>
+                    </div>
+
+                    <!-- Media Upload -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Upload Media</label>
+                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                            <div class="space-y-1 text-center">
+                                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400"></i>
+                                <div class="flex text-sm text-gray-600">
+                                    <label for="media" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                                        <span>Upload files</span>
+                                        <input id="media" name="media" type="file" class="sr-only" multiple accept="image/*,video/*">
+                                    </label>
+                                    <p class="pl-1">or drag and drop</p>
+                                </div>
+                                <p class="text-xs text-gray-500">
+                                    PNG, JPG, GIF up to 10MB
+                                </p>
+                            </div>
+                        </div>
+                        <div id="mediaPreview" class="mt-2 grid grid-cols-2 gap-4"></div>
+                    </div>
+
+                    <!-- Involved People -->
+                    <div>
+                        <label for="involvedPeople" class="block text-sm font-medium text-gray-700">Involved People</label>
+                        <textarea id="involvedPeople" name="involvedPeople" rows="3"
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            placeholder="Describe any involved people or vehicles..."></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div>
+                        <button type="submit"
+                            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            Submit Report
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/reports.js"></script>
+</body>
+</html> 
